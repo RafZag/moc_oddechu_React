@@ -1,0 +1,124 @@
+{
+  "teachers": [
+    {
+      "id": 1,
+      "name": "Paulina",
+      "surname": "Ferenc",
+      "email": "paulina.ferenc@gmail.com",
+      "phone": "608 450 210"
+    },
+    {
+      "id": 2,
+      "name": "Marysia",
+      "surname": "Białecka",
+      "email": "example@example.com",
+      "phone": "602 123 456"
+    },
+    {
+      "id": 3,
+      "name": "Edyta",
+      "surname": "Sanko",
+      "email": "example@example.com",
+      "phone": "602 123 456"
+    }
+  ],
+  "clients": [
+    {
+      "id": 1,
+      "name": "Rafał",
+      "surname": "Zagórny",
+      "email": "zagorny.rafal@gmail.com",
+      "phone": "602 446 969"
+    },
+    {
+      "id": 2,
+      "name": "Bartek",
+      "surname": "Brudnicki",
+      "email": "example@example.com",
+      "phone": "602 123 456"
+    },
+    {
+      "id": 3,
+      "name": "Jan",
+      "surname": "Kowalski",
+      "email": "example@example.com",
+      "phone": "602 123 456"
+    },
+    {
+      "id": 4,
+      "name": "Basia",
+      "surname": "Cmoch",
+      "email": "example@example.com",
+      "phone": "602 123 456"
+    },
+    {
+      "id": 5,
+      "name": "Anna",
+      "surname": "Liberek",
+      "email": "example@example.com",
+      "phone": "602 123 456"
+    },
+    {
+      "id": 6,
+      "name": "Ola",
+      "surname": "Szmielew",
+      "email": "example@example.com",
+      "phone": "602 123 456"
+    },
+    {
+      "id": 2,
+      "name": "Bartek",
+      "surname": "Brudnicki",
+      "email": "example@example.com",
+      "phone": "602 123 456"
+    }
+  ],
+  "workouts": [
+    {
+      "id": 1,
+      "name": "Joga",
+      "day": "Poniedziałek",
+      "time": "17:30",
+      "date": "29-08-2022",
+      "teacherId": 2
+    },
+    {
+      "id": 2,
+      "name": "Pilates",
+      "day": "Wtorek",
+      "time": "18:30",
+      "date": "30-08-2022",
+      "teacherId": 1
+    },
+    {
+      "id": 3,
+      "name": "Hatha joga",
+      "day": "Środa",
+      "time": "18:00",
+      "date": "31-08-2022",
+      "teacherId": 3
+    },
+    {
+      "id": 4,
+      "name": "Joga",
+      "day": "Poniedziałek",
+      "time": "17:30",
+      "date": "01-09-2022",
+      "teacherId": 2
+    }
+  ],
+  "membership": [
+    {
+      "id": 1,
+      "type": "Pojedyncze wejście",
+      "start": "01-09-2022",
+      "clientId": 2
+    },
+    {
+      "id": 2,
+      "type": "Pojedyncze wejście",
+      "start": "01-08-2022",
+      "clientId": 1
+    }
+  ]
+}
