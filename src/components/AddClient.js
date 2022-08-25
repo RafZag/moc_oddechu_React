@@ -7,6 +7,11 @@ const AddClient = ({ onAdd }) => {
   const [phone, setPhone] = useState('');
 
   const onSubmit = (e) => {
+    // if (!name || surname || email || phone) {
+    //   alert('Podaj wszystkie dane');
+    //   return;
+    // }
+
     e.preventDefault();
     setName('');
     setSurname('');
@@ -19,51 +24,62 @@ const AddClient = ({ onAdd }) => {
   return (
     <div className="container mb-6">
       <h5>Dodaj nowego klienta</h5>
-      <form className="w-50 mt-4" onSubmit={onSubmit}>
+      <form className="w-50 mt-4 needs-validation" onSubmit={onSubmit}>
         <div className="mb-3">
-          <label htmlFor="nameInput" className="visually-hidden">
-            Name
-          </label>
-          <input type="text" className="form-control" id="nameInput" placeholder="Imię" value={name} onChange={(e) => setName(e.target.value)} />
+          <div className="input-group has-validation">
+            <input
+              required
+              type="text"
+              className="form-control"
+              id="nameInput"
+              placeholder="Imię"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <div className="invalid-feedback">Podaj imię.</div>
+          </div>
         </div>
         <div className="mb-3">
-          <label htmlFor="surnameInput" className="visually-hidden">
-            Surname
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="surnameInput"
-            placeholder="Nazwisko"
-            value={surname}
-            onChange={(e) => setSurname(e.target.value)}
-          />
+          <div className="input-group has-validation">
+            <input
+              required
+              type="text"
+              className="form-control"
+              id="surnameInput"
+              placeholder="Nazwisko"
+              value={surname}
+              onChange={(e) => setSurname(e.target.value)}
+            />
+            <div className="invalid-feedback">Podaj nazwisko.</div>
+          </div>
         </div>
         <div className="mb-3">
-          <label htmlFor="emailInput" className="visually-hidden">
-            Email
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="emailInput"
-            placeholder="Adres e-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <div className="input-group has-validation">
+            <input
+              required
+              type="email"
+              className="form-control"
+              id="emailInput"
+              placeholder="Adres e-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div className="invalid-feedback">Podaj e-mail.</div>
+          </div>
         </div>
         <div className="mb-3">
-          <label htmlFor="phoneInput" className="visually-hidden">
-            Phone
-          </label>
-          <input
-            type="phone"
-            className="form-control"
-            id="phoneInput"
-            placeholder="Telefon"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
+          <div className="input-group has-validation">
+            <input
+              required
+              type="phone"
+              className="form-control"
+              id="phoneInput"
+              placeholder="Telefon"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            <div className="invalid-feedback">Podaj telefon.</div>
+          </div>
         </div>
         <div className="position-relative d-flex align-items-center py-3">
           <input type="submit" value="Dodaj klienta" className="btn btn-success" />

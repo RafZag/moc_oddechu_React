@@ -20,6 +20,13 @@
       "surname": "Sanko",
       "email": "example@example.com",
       "phone": "602 123 456"
+    },
+    {
+      "name": "Rafał ",
+      "surname": "Zagórny",
+      "email": "zagorny.rafal@gmail.com",
+      "phone": "602446969",
+      "id": 4
     }
   ],
   "clients": [

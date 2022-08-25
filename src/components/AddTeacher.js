@@ -7,6 +7,11 @@ const AddTeacher = ({ onAdd }) => {
   const [phone, setPhone] = useState('');
 
   const onSubmit = (e) => {
+    // if (!name || !surname || !email || !phone) {
+    //   alert('Podaj wszystkie dane');
+    //   return;
+    // }
+
     e.preventDefault();
     setName('');
     setSurname('');
@@ -24,13 +29,22 @@ const AddTeacher = ({ onAdd }) => {
           <label htmlFor="nameInput" className="visually-hidden">
             Name
           </label>
-          <input type="text" className="form-control" id="nameInput" placeholder="Imię" value={name} onChange={(e) => setName(e.target.value)} />
+          <input
+            required
+            type="text"
+            className="form-control"
+            id="nameInput"
+            placeholder="Imię"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="surnameInput" className="visually-hidden">
             Surname
           </label>
           <input
+            required
             type="text"
             className="form-control"
             id="surnameInput"
@@ -44,6 +58,7 @@ const AddTeacher = ({ onAdd }) => {
             Email
           </label>
           <input
+            required
             type="email"
             className="form-control"
             id="emailInput"
@@ -57,6 +72,7 @@ const AddTeacher = ({ onAdd }) => {
             Phone
           </label>
           <input
+            required
             type="phone"
             className="form-control"
             id="phoneInput"

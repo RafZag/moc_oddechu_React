@@ -56,7 +56,7 @@ const Clients = ({ onSelect }) => {
             <tr>
               <th scope="col">Imię i Nazwisko</th>
               <th scope="col">e-mail</th>
-              <th scope="col">Telefom</th>
+              <th scope="col">Telefon</th>
               <th scope="col">Usuń</th>
             </tr>
           </thead>
