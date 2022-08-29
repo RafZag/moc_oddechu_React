@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { FaTrashAlt } from 'react-icons/fa';
-import AddTeacher from './AddTeacher';
+import DeletePersonModal from './DeletePersonModal';
+import AddPersonModal from './AddPersonModal';
 
 const Teachers = ({ onSelect }) => {
   const [teachers, setTeachers] = useState([]);
+  const [teacherToDelete, setToDelete] = useState({});
 
   useEffect(() => {
     const getTeachers = async () => {
@@ -72,14 +74,25 @@ const Teachers = ({ onSelect }) => {
                 <td>{teacher.email}</td>
                 <td>{teacher.phone}</td>
                 <td>
-                  <FaTrashAlt style={{ color: 'red', cursor: 'pointer' }} onClick={() => deleteTeacher(teacher.id)} />
+                  <FaTrashAlt
+                    style={{ color: 'red', cursor: 'pointer' }}
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                    onClick={() => {
+                      setToDelete(teacher);
+                    }}
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <AddTeacher onAdd={addTeacher} />
+      <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
+        Dodaj klienta
+      </button>
+      <AddPersonModal onAdd={addTeacher} headerText={'Dodaj nowego nauczyciela'} />
+      <DeletePersonModal onDelete={deleteTeacher} clientToDelete={teacherToDelete} headerText={'Usunąć nauczyciela?'} />
     </>
   );
 };

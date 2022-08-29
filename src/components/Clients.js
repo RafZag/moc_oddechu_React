@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { FaTrashAlt } from 'react-icons/fa';
-import AddClient from './AddClient';
+import DeletePersonModal from './DeletePersonModal';
+import AddPersonModal from './AddPersonModal';
 
 const Clients = ({ onSelect }) => {
   const [clients, setClients] = useState([]);
+  const [clientToDelete, setToDelete] = useState({});
 
   useEffect(() => {
     const getClients = async () => {
@@ -19,7 +21,6 @@ const Clients = ({ onSelect }) => {
   const fetchClients = async () => {
     const res = await fetch('http://localhost:5000/clients');
     const data = await res.json();
-
     return data;
   };
 
@@ -71,14 +72,27 @@ const Clients = ({ onSelect }) => {
                 <td>{client.email}</td>
                 <td>{client.phone}</td>
                 <td>
-                  <FaTrashAlt style={{ color: 'red', cursor: 'pointer' }} onClick={() => deleteClient(client.id)} />
+                  <FaTrashAlt
+                    style={{ color: 'red', cursor: 'pointer' }}
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                    onClick={() => {
+                      setToDelete(client);
+                    }}
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <AddClient onAdd={addClient} />
+
+      {/* <AddClient onAdd={addClient} /> */}
+      <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
+        Dodaj klienta
+      </button>
+      <AddPersonModal onAdd={addClient} headerText={'Dodaj nowego klienta'} />
+      <DeletePersonModal onDelete={deleteClient} clientToDelete={clientToDelete} headerText={'Usunąć klienta?'} />
     </>
   );
 };

@@ -31,13 +31,6 @@
   ],
   "clients": [
     {
-      "id": 1,
-      "name": "Rafał",
-      "surname": "Zagórny",
-      "email": "zagorny.rafal@gmail.com",
-      "phone": "602 446 969"
-    },
-    {
       "id": 2,
       "name": "Bartek",
       "surname": "Brudnicki",
@@ -78,6 +71,13 @@
       "surname": "Brudnicki",
       "email": "example@example.com",
       "phone": "602 123 456"
+    },
+    {
+      "name": "Rafał ",
+      "surname": "Zagórny",
+      "email": "zagorny.rafal@gmail.com",
+      "phone": "602446969",
+      "id": 7
     }
   ],
   "workouts": [
@@ -120,12 +120,6 @@
       "type": "Pojedyncze wejście",
       "start": "01-09-2022",
       "clientId": 2
-    },
-    {
-      "id": 2,
-      "type": "Pojedyncze wejście",
-      "start": "01-08-2022",
-      "clientId": 1
     }
   ]
 }
