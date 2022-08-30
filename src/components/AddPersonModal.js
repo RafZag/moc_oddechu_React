@@ -12,13 +12,20 @@ const AddPersonModal = ({ onAdd, headerText }) => {
     //   return;
     // }
 
-    e.preventDefault();
+    // e.preventDefault();
     setName('');
     setSurname('');
     setEmail('');
     setPhone('');
 
     onAdd({ name, surname, email, phone });
+  };
+
+  const onCancel = () => {
+    setName('');
+    setSurname('');
+    setEmail('');
+    setPhone('');
   };
 
   return (
@@ -29,7 +36,7 @@ const AddPersonModal = ({ onAdd, headerText }) => {
             <h5 className="modal-title" id="addModalLabel">
               {headerText}
             </h5>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => onCancel()}></button>
           </div>
           <div className="modal-body">
             <form className="mt-4 needs-validation" onSubmit={onSubmit}>
@@ -90,10 +97,10 @@ const AddPersonModal = ({ onAdd, headerText }) => {
                 </div>
               </div>
               <div className="position-relative d-flex align-items-center py-3 modal-footer">
-                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => onCancel()}>
                   Anuluj
                 </button>
-                <input type="submit" value="Dodaj klienta" className="btn btn-success" />
+                <input type="submit" value="Dodaj" className="btn btn-success" />
               </div>
             </form>
           </div>

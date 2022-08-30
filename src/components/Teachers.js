@@ -88,8 +88,8 @@ const Teachers = ({ onSelect }) => {
           </tbody>
         </table>
       </div>
-      <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
-        Dodaj klienta
+      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+        Dodaj nauczyciela
       </button>
       <AddPersonModal onAdd={addTeacher} headerText={'Dodaj nowego nauczyciela'} />
       <DeletePersonModal onDelete={deleteTeacher} clientToDelete={teacherToDelete} headerText={'Usunąć nauczyciela?'} />

@@ -88,7 +88,7 @@ const Clients = ({ onSelect }) => {
       </div>
 
       {/* <AddClient onAdd={addClient} /> */}
-      <button type="button" className="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
+      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
         Dodaj klienta
       </button>
       <AddPersonModal onAdd={addClient} headerText={'Dodaj nowego klienta'} />

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import WorkoutsDetails from './WorkoutDetails';
+import AddWorkoutModal from './AddWorkoutModal';
 
 const Workouts = ({ onSelect }) => {
   const [workouts, setWorkouts] = useState([]);
@@ -20,6 +22,21 @@ const Workouts = ({ onSelect }) => {
     return data;
   };
 
+  // Add Workout
+  const addWorkout = async (workout) => {
+    const res = await fetch('http://localhost:5000/workouts', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(workout),
+    });
+
+    const data = await res.json();
+
+    setWorkouts([...workouts, data]);
+  };
+
   const navigate = useNavigate();
 
   return (
@@ -33,27 +50,20 @@ const Workouts = ({ onSelect }) => {
               <th scope="col">Godzina</th>
               <th scope="col">Data</th>
               <th scope="col">Nauczyciel</th>
+              <th scope="col">Zapisanych</th>
             </tr>
           </thead>
           <tbody>
             {workouts.map((workout, index) => (
-              <tr key={index} style={{ cursor: 'pointer' }} onClick={() => onSelect(workout.name)}>
-                <td>
-                  <strong className="text-primary">{workout.name}</strong>
-                </td>
-                <td>{workout.day}</td>
-                <td>{workout.time}</td>
-                <td>{workout.date}</td>
-                <td>
-                  {workout.teacher.name} {workout.teacher.surname}
-                </td>
+              <tr key={index} style={{ cursor: 'pointer' }} onClick={() => onSelect(workout.id)}>
+                <WorkoutsDetails workout={workout} />
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <div className="position-relative d-flex align-items-center py-3">
-        <button onClick={() => navigate('/')} className="btn btn-success">
+        <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
           Dodaj zajęcia
         </button>
         <div className="position-absolute end-0">
@@ -65,6 +75,7 @@ const Workouts = ({ onSelect }) => {
           </button>
         </div>
       </div>
+      <AddWorkoutModal onAdd={addWorkout} />
     </>
   );
 };
