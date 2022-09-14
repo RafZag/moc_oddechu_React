@@ -104,6 +104,22 @@
       "time": "18:00",
       "date": "31-08-2022",
       "teacherId": 3
+    },
+    {
+      "name": "Pilates",
+      "day": "Wtorek",
+      "time": "12:50",
+      "date": "23-04-2023",
+      "teacherId": 2,
+      "id": 4
+    },
+    {
+      "name": "Joga",
+      "day": "Poniedziałek",
+      "time": "12:50",
+      "date": "2022-09-12",
+      "teacherId": 2,
+      "id": 5
     }
   ],
   "membership": [

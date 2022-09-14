@@ -3,12 +3,11 @@ import { useState, useEffect } from 'react';
 const AddWorkoutModal = ({ onAdd }) => {
   const [teachers, setTeachers] = useState([]);
   const [name, setName] = useState('');
-  const [day, setDay] = useState('');
   const [time, setTime] = useState('');
   const [date, setDate] = useState('');
   const [teacherId, setTeacher] = useState(0);
 
-  const weekDays = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
+  const weekDays = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
 
   useEffect(() => {
     const getTeachers = async () => {
@@ -28,17 +27,24 @@ const AddWorkoutModal = ({ onAdd }) => {
   };
 
   const onSubmit = (e) => {
-    // if (!name || surname || email || phone) {
-    //   alert('Podaj wszystkie dane');
+    // if (!day) {
+    //   alert('Podaj dzień!');
     //   return;
     // }
 
+    if (!teacherId) {
+      alert('Wybierz nauczyciela');
+      return;
+    }
+
     // e.preventDefault();
+    const d = new Date(date);
+    const day = weekDays[d.getDay()];
+    console.log(day);
 
     onAdd({ name, day, time, date, teacherId });
 
     setName('');
-    setDay('');
     setTime('');
     setDate('');
     setTeacher(0);
@@ -46,7 +52,6 @@ const AddWorkoutModal = ({ onAdd }) => {
 
   const onCancel = () => {
     setName('');
-    setDay('');
     setTime('');
     setDate('');
     setTeacher(0);
@@ -92,8 +97,8 @@ const AddWorkoutModal = ({ onAdd }) => {
                   <div className="invalid-feedback">Podaj dzień tygodnia.</div>
                 </div>
               </div> */}
-              <div className="mb-3">
-                <select className="form-select" aria-label="Dzień tygodnia" value={day} onChange={(e) => setDay(e.target.value)}>
+              {/* <div className="mb-3">
+                <select className="form-select" value={day} onChange={(e) => setDay(e.target.value)} required>
                   <option defaultValue>Wybierz dzień</option>
                   {weekDays.map((day, index) => (
                     <option key={index} value={day}>
@@ -101,7 +106,7 @@ const AddWorkoutModal = ({ onAdd }) => {
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
               <div className="mb-3">
                 <div className="input-group has-validation">
                   <input
@@ -120,7 +125,7 @@ const AddWorkoutModal = ({ onAdd }) => {
                 <div className="input-group has-validation">
                   <input
                     required
-                    type="text"
+                    type="date"
                     className="form-control"
                     id="dateInput"
                     placeholder="Data"
@@ -131,7 +136,7 @@ const AddWorkoutModal = ({ onAdd }) => {
                 </div>
               </div>
               <div className="mb-3">
-                <select className="form-select" aria-label="Nauczyciel" value={teacherId} onChange={(e) => setTeacher(parseInt(e.target.value))}>
+                <select className="form-select" value={teacherId} onChange={(e) => setTeacher(parseInt(e.target.value))} required>
                   <option defaultValue>Wybierz nauczyciela</option>
                   {teachers.map((teacher, index) => (
                     <option key={index} value={teacher.id}>

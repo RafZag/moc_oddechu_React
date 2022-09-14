@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Workouts from './components/Workouts';
 import Teachers from './components/Teachers';
 import Clients from './components/Clients';
+import WorkoutsView from './components/WorkoutView';
 
 import './App.css';
 
@@ -42,6 +43,15 @@ function App() {
               <>
                 <Header title={'Lista klientów'} />
                 <Clients onSelect={onSelect} />
+              </>
+            }
+          />
+          <Route
+            path="/workout/:id"
+            element={
+              <>
+                <Header title={'Zajęcia'} />
+                <WorkoutsView onSelect={onSelect} />
               </>
             }
           />

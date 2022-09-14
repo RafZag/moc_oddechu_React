@@ -41,7 +41,7 @@ const Workouts = ({ onSelect }) => {
 
   return (
     <>
-      <div className="rounded bg-white p-3 mb-4">
+      <div className="rounded bg-white p-3 mb-4 shadow-sm">
         <table className="table table-hover">
           <thead>
             <tr>
@@ -55,7 +55,7 @@ const Workouts = ({ onSelect }) => {
           </thead>
           <tbody>
             {workouts.map((workout, index) => (
-              <tr key={index} style={{ cursor: 'pointer' }} onClick={() => onSelect(workout.id)}>
+              <tr key={index} style={{ cursor: 'pointer' }} onClick={() => navigate(`/workout/${workout.id}`)}>
                 <WorkoutsDetails workout={workout} />
               </tr>
             ))}

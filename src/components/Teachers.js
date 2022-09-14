@@ -53,7 +53,7 @@ const Teachers = ({ onSelect }) => {
 
   return (
     <>
-      <div className="rounded bg-white p-3 mb-4">
+      <div className="rounded bg-white p-3 mb-4 shadow-sm">
         <table className="table table-hover">
           <thead>
             <tr>
