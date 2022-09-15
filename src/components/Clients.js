@@ -13,7 +13,6 @@ const Clients = ({ onSelect }) => {
       const clientsFromServer = await fetchClients();
       setClients(clientsFromServer);
     };
-
     getClients();
   }, []);
 
@@ -64,7 +63,7 @@ const Clients = ({ onSelect }) => {
           <tbody>
             {clients.map((client, index) => (
               <tr key={index}>
-                <td className="text-primary" style={{ cursor: 'pointer' }} onClick={() => onSelect(client.name)}>
+                <td className="text-primary" onClick={() => onSelect(client.name)}>
                   <strong>
                     {client.name} {client.surname}
                   </strong>

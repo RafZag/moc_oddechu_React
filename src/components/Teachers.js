@@ -66,7 +66,7 @@ const Teachers = ({ onSelect }) => {
           <tbody>
             {teachers.map((teacher, index) => (
               <tr key={index}>
-                <td style={{ cursor: 'pointer' }} onClick={() => onSelect(teacher.name)}>
+                <td onClick={() => onSelect(teacher.name)}>
                   <strong className="text-primary">
                     {teacher.name} {teacher.surname}
                   </strong>

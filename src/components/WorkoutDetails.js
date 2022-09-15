@@ -9,7 +9,7 @@ const WorkoutsDetails = ({ workout }) => {
       setPresence(presenceFromServer);
     };
     getPresence();
-  });
+  }, []);
 
   // Fetch presence
   const FetchPresence = async () => {
@@ -29,7 +29,9 @@ const WorkoutsDetails = ({ workout }) => {
       <td>
         {workout.teacher.name} {workout.teacher.surname}
       </td>
-      <td>{workoutPresence}</td>
+      <td>
+        <span className="badge bg-secondary">{workoutPresence}</span>
+      </td>
     </>
   );
 };
