@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 
-const WorkoutClient = (props) => {
+const WorkoutClient = ({ id, setToDel, presId }) => {
   const [clientInfo, setclientInfo] = useState({});
 
   useEffect(() => {
@@ -13,9 +14,8 @@ const WorkoutClient = (props) => {
 
   // Fetch presence
   const FetchClientInfo = async () => {
-    const res = await fetch(`http://localhost:5000/clients/${props.id}`);
+    const res = await fetch(`http://localhost:5000/clients/${id}`);
     const data = await res.json();
-    console.log(data);
     return data;
   };
 
@@ -28,7 +28,16 @@ const WorkoutClient = (props) => {
       </td>
       <td>{clientInfo.email}</td>
       <td>{clientInfo.phone}</td>
-      <td></td>
+      <td>
+        <FaTrashAlt
+          style={{ color: 'red', cursor: 'pointer' }}
+          data-bs-toggle="modal"
+          data-bs-target="#deleteModal"
+          onClick={() => {
+            setToDel({ ...clientInfo, id: presId });
+          }}
+        />
+      </td>
     </>
   );
 };

@@ -41,8 +41,8 @@ const Workouts = ({ onSelect }) => {
 
   return (
     <>
-      <div className="rounded bg-white p-3 mb-4 shadow-sm">
-        <table className="table table-hover">
+      <div className="rounded bg-white p-3 shadow-sm">
+        <table className="table table-hover mb-4">
           <thead>
             <tr>
               <th scope="col">Nazwa zajęć</th>
@@ -61,20 +61,11 @@ const Workouts = ({ onSelect }) => {
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="position-relative d-flex align-items-center py-3">
         <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
           Dodaj zajęcia
         </button>
-        <div className="position-absolute end-0">
-          <button onClick={() => navigate('/clients')} className="btn btn-outline-secondary ">
-            Klienci
-          </button>
-          <button onClick={() => navigate('/teachers')} className="btn btn-outline-secondary mx-2">
-            Nauczyciele
-          </button>
-        </div>
       </div>
+      <div className="position-relative d-flex align-items-center py-3"></div>
       <AddWorkoutModal onAdd={addWorkout} />
     </>
   );

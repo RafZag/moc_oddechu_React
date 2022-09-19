@@ -87,10 +87,11 @@ const Teachers = ({ onSelect }) => {
             ))}
           </tbody>
         </table>
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+          Dodaj nauczyciela
+        </button>
       </div>
-      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-        Dodaj nauczyciela
-      </button>
+
       <AddPersonModal onAdd={addTeacher} headerText={'Dodaj nowego nauczyciela'} />
       <DeletePersonModal onDelete={deleteTeacher} clientToDelete={teacherToDelete} headerText={'Usunąć nauczyciela?'} />
     </>

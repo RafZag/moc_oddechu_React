@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import WorkoutClient from './WorkoutClient';
+import DeletePersonModal from './DeletePersonModal';
+import AddWorkoutClientModal from './AddWorkoutClientModal';
 
 const WorkoutsView = (props) => {
   const [workoutInfo, setWorkoutInfo] = useState({});
   const [teacherName, setteacherName] = useState('');
   const [teacherSurname, setteacherSurname] = useState('');
   const [presence, setPresence] = useState([]);
+  const [presenceToDelete, setToDelete] = useState({});
+
   const params = useParams();
 
   useEffect(() => {
@@ -40,40 +44,89 @@ const WorkoutsView = (props) => {
     return data;
   };
 
+  // Add Presence
+  const addPresence = async (client) => {
+    const p = {
+      workoutId: parseInt(params.id),
+      clientId: client.clientId,
+    };
+
+    const res = await fetch('http://localhost:5000/presence', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(p),
+    });
+
+    const data = await res.json();
+
+    setPresence([...presence, data]);
+  };
+
+  // Set to delete
+
+  const setToDel = (toDel) => {
+    setToDelete(toDel);
+  };
+
+  //Delete presence
+  const deletePresence = async (presId) => {
+    const res = await fetch(`http://localhost:5000/presence/${presId}`, {
+      method: 'DELETE',
+    });
+    //We should control the response status to decide if we will change the state or not.
+
+    // setPresence(presence.filter((pr) => pr.id !== presId));
+    res.status === 200 ? window.location.reload() : alert('Error Deleting This Client');
+  };
+
   return (
     <>
       <div className="rounded bg-white p-3 mb-4 shadow-sm">
-        <div className="container mb-4">
+        <div className="container mb-4 rounded bg-secondary p-3 text-white">
           <h3>
-            {workoutInfo.name}
+            {workoutInfo.time} {' - '} {workoutInfo.name}
             <span className="fw-light">
-              {' - '} {teacherName} {teacherSurname} {workoutInfo.day} {workoutInfo.date}
+              {' | '} {teacherName} {teacherSurname}
             </span>
+            <div className="float-end">
+              {workoutInfo.day}
+              <span className="fw-light"> {workoutInfo.date}</span>
+            </div>
           </h3>
         </div>
 
-        <div className="container mb-4">
-          <h5>Lista zapisanych klientów:</h5>
-        </div>
-        <table className="table table-hover mt-4">
-          <thead>
-            <tr>
-              <th scope="col">Imię i Nazwisko</th>
-              <th scope="col">e-mail</th>
-              <th scope="col">Telefon</th>
-              <th scope="col">Usuń</th>
-            </tr>
-          </thead>
-          <tbody>
-            {presence.map((pres, index) => (
-              <tr key={index}>
-                <WorkoutClient id={pres.clientId} />
+        {presence.length > 0 ? (
+          <table className="table table-hover mt-4 mb-4">
+            <thead>
+              <tr>
+                <th scope="col">Klient</th>
+                <th scope="col">e-mail</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Usuń</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <ul></ul>
+            </thead>
+            <tbody>
+              {presence.map((pres, index) => (
+                <tr key={index}>
+                  <WorkoutClient id={pres.clientId} setToDel={setToDel} presId={pres.id} />
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="container text-center py-3 text-secondary">
+            <h3>Brak zapisanych klientów</h3>
+          </div>
+        )}
+
+        <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+          Zapisz klienta
+        </button>
       </div>
+      <AddWorkoutClientModal onAdd={addPresence} />
+      <DeletePersonModal onDelete={deletePresence} clientToDelete={presenceToDelete} headerText={'Usunąć klienta?'} />
     </>
   );
 };

@@ -84,12 +84,11 @@ const Clients = ({ onSelect }) => {
             ))}
           </tbody>
         </table>
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+          Dodaj klienta
+        </button>
       </div>
 
-      {/* <AddClient onAdd={addClient} /> */}
-      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
-        Dodaj klienta
-      </button>
       <AddPersonModal onAdd={addClient} headerText={'Dodaj nowego klienta'} />
       <DeletePersonModal onDelete={deleteClient} clientToDelete={clientToDelete} headerText={'Usunąć klienta?'} />
     </>
