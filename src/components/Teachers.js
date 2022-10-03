@@ -46,7 +46,9 @@ const Teachers = ({ onSelect }) => {
 
     const data = await res.json();
 
-    setTeachers([...teachers, data]);
+    setTeachers((prevTeachers) => {
+      return [...prevTeachers, data];
+    });
   };
 
   // const navigate = useNavigate();
@@ -64,8 +66,8 @@ const Teachers = ({ onSelect }) => {
             </tr>
           </thead>
           <tbody>
-            {teachers.map((teacher, index) => (
-              <tr key={index}>
+            {teachers.map((teacher) => (
+              <tr key={teacher.id}>
                 <td onClick={() => onSelect(teacher.name)}>
                   <strong className="text-primary">
                     {teacher.name} {teacher.surname}

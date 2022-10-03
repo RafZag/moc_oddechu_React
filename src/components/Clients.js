@@ -44,7 +44,9 @@ const Clients = ({ onSelect }) => {
 
     const data = await res.json();
 
-    setClients([...clients, data]);
+    setClients((prevClients) => {
+      return [...clients, data];
+    });
   };
 
   // const navigate = useNavigate();
@@ -61,8 +63,8 @@ const Clients = ({ onSelect }) => {
             </tr>
           </thead>
           <tbody>
-            {clients.map((client, index) => (
-              <tr key={index}>
+            {clients.map((client) => (
+              <tr key={client.id}>
                 <td className="text-primary" onClick={() => onSelect(client.name)}>
                   <strong>
                     {client.name} {client.surname}

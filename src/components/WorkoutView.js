@@ -61,7 +61,9 @@ const WorkoutsView = (props) => {
 
     const data = await res.json();
 
-    setPresence([...presence, data]);
+    setPresence((prevPresence) => {
+      return [...prevPresence, data];
+    });
   };
 
   // Set to delete
@@ -78,15 +80,18 @@ const WorkoutsView = (props) => {
     //We should control the response status to decide if we will change the state or not.
 
     // setPresence(presence.filter((pr) => pr.id !== presId));
-    res.status === 200 ? window.location.reload() : alert('Error Deleting This Client');
+    // res.status === 200 ? window.location.reload() : alert('Error Deleting This Client');
+    res.status === 200 ? setPresence(presence.filter((pr) => pr.id !== presId)) : alert('Error Deleting This Client');
   };
+
+  const time = new Date(workoutInfo.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
     <>
       <div className="rounded bg-white p-3 mb-4 shadow-sm">
         <div className="container mb-4 rounded bg-secondary p-3 text-white">
           <h3>
-            {workoutInfo.time} {' - '} {workoutInfo.name}
+            {time} {' - '} {workoutInfo.name}
             <span className="fw-light">
               {' | '} {teacherName} {teacherSurname}
             </span>
@@ -109,7 +114,7 @@ const WorkoutsView = (props) => {
             </thead>
             <tbody>
               {presence.map((pres, index) => (
-                <tr key={index}>
+                <tr key={pres.clientId}>
                   <WorkoutClient id={pres.clientId} setToDel={setToDel} presId={pres.id} />
                 </tr>
               ))}

@@ -38,13 +38,6 @@
       "phone": "602 123 456"
     },
     {
-      "id": 3,
-      "name": "Jan",
-      "surname": "Kowalski",
-      "email": "example@example.com",
-      "phone": "602 123 456"
-    },
-    {
       "id": 4,
       "name": "Basia",
       "surname": "Cmoch",
@@ -78,48 +71,50 @@
       "email": "zagorny.rafal@gmail.com",
       "phone": "602446969",
       "id": 8
+    },
+    {
+      "name": "Paulina",
+      "surname": "Ferenc",
+      "email": "paulina.ferenc@gmail.com",
+      "phone": "608 450 210",
+      "id": 9
+    },
+    {
+      "name": "Ala",
+      "surname": "Makota",
+      "email": "example@example.com",
+      "phone": "602446969",
+      "id": 10
     }
   ],
   "workouts": [
     {
-      "id": 1,
       "name": "Joga",
-      "day": "Poniedziałek",
-      "time": "17:30",
-      "date": "29-08-2022",
-      "teacherId": 2
+      "day": "Czwartek",
+      "timestamp": 1665662760000,
+      "teacherId": 2,
+      "id": 7
     },
     {
-      "id": 2,
       "name": "Pilates",
-      "day": "Wtorek",
-      "time": "18:30",
-      "date": "30-08-2022",
-      "teacherId": 1
+      "day": "Czwartek",
+      "timestamp": 1665070200000,
+      "teacherId": 1,
+      "id": 8
     },
     {
-      "id": 3,
-      "name": "Hatha joga",
-      "day": "Środa",
-      "time": "18:00",
-      "date": "31-08-2022",
-      "teacherId": 3
+      "name": "Hatha Joga",
+      "day": "Wtorek",
+      "timestamp": 1665504900000,
+      "teacherId": 3,
+      "id": 9
     },
     {
       "name": "Pilates",
       "day": "Wtorek",
-      "time": "12:50",
-      "date": "23-04-2023",
-      "teacherId": 2,
-      "id": 4
-    },
-    {
-      "name": "Joga",
-      "day": "Poniedziałek",
-      "time": "12:50",
-      "date": "2022-09-12",
-      "teacherId": 2,
-      "id": 5
+      "timestamp": 1666701600000,
+      "teacherId": 1,
+      "id": 10
     }
   ],
   "membership": [
@@ -131,21 +126,6 @@
     }
   ],
   "presence": [
-    {
-      "workoutId": 1,
-      "clientId": 8,
-      "id": 19
-    },
-    {
-      "workoutId": 3,
-      "clientId": 3,
-      "id": 24
-    },
-    {
-      "workoutId": 3,
-      "clientId": 8,
-      "id": 26
-    },
     {
       "workoutId": 3,
       "clientId": 6,
@@ -162,24 +142,89 @@
       "id": 29
     },
     {
+      "workoutId": 2,
+      "clientId": 4,
+      "id": 34
+    },
+    {
+      "workoutId": 2,
+      "clientId": 6,
+      "id": 36
+    },
+    {
       "workoutId": 4,
+      "clientId": 6,
+      "id": 37
+    },
+    {
+      "workoutId": 1,
+      "clientId": 6,
+      "id": 39
+    },
+    {
+      "workoutId": 3,
+      "clientId": 8,
+      "id": 45
+    },
+    {
+      "workoutId": 3,
+      "clientId": 2,
+      "id": 46
+    },
+    {
+      "workoutId": 3,
+      "clientId": 10,
+      "id": 47
+    },
+    {
+      "workoutId": 4,
+      "clientId": 4,
+      "id": 48
+    },
+    {
+      "workoutId": 4,
+      "clientId": 8,
+      "id": 49
+    },
+    {
+      "workoutId": 4,
+      "clientId": 10,
+      "id": 50
+    },
+    {
+      "workoutId": 5,
+      "clientId": 10,
+      "id": 51
+    },
+    {
+      "workoutId": 5,
       "clientId": 5,
-      "id": 30
+      "id": 52
     },
     {
-      "workoutId": 4,
-      "clientId": 3,
-      "id": 31
+      "workoutId": 5,
+      "clientId": 8,
+      "id": 53
     },
     {
-      "workoutId": 2,
-      "clientId": 3,
-      "id": 32
+      "workoutId": 5,
+      "clientId": 4,
+      "id": 54
     },
     {
-      "workoutId": 2,
-      "clientId": 7,
-      "id": 33
+      "workoutId": 7,
+      "clientId": 8,
+      "id": 55
+    },
+    {
+      "workoutId": 7,
+      "clientId": 4,
+      "id": 56
+    },
+    {
+      "workoutId": 7,
+      "clientId": 6,
+      "id": 57
     }
   ]
 }

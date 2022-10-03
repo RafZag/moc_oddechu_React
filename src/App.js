@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { getDatabase, ref, set, get } from 'firebase/database';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -7,6 +8,7 @@ import Workouts from './components/Workouts';
 import Teachers from './components/Teachers';
 import Clients from './components/Clients';
 import WorkoutsView from './components/WorkoutView';
+import database from './firebase-config';
 
 import './App.css';
 

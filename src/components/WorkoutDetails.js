@@ -18,14 +18,17 @@ const WorkoutsDetails = ({ workout }) => {
     return data.presence.length;
   };
 
+  const time = new Date(workout.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const date = new Date(workout.timestamp).toLocaleDateString();
+
   return (
     <>
       <td>
         <strong className="text-primary">{workout.name}</strong>
       </td>
       <td>{workout.day}</td>
-      <td>{workout.time}</td>
-      <td>{workout.date}</td>
+      <td>{time}</td>
+      <td>{date}</td>
       <td>
         {workout.teacher.name} {workout.teacher.surname}
       </td>

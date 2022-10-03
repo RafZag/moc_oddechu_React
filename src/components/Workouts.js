@@ -10,6 +10,9 @@ const Workouts = ({ onSelect }) => {
     const getWorkouts = async () => {
       const workoutsFromServer = await fetchWorkouts();
       setWorkouts(workoutsFromServer);
+      // workouts.sort((a, b) => {
+      //   return a - b;
+      // });
     };
     getWorkouts();
   }, []);
@@ -18,7 +21,10 @@ const Workouts = ({ onSelect }) => {
   const fetchWorkouts = async () => {
     const res = await fetch('http://localhost:5000/workouts?_expand=teacher');
     const data = await res.json();
-
+    data.sort((a, b) => {
+      return a.timestamp - b.timestamp;
+    });
+    // console.log(data);
     return data;
   };
 
@@ -34,7 +40,9 @@ const Workouts = ({ onSelect }) => {
 
     const data = await res.json();
 
-    setWorkouts([...workouts, data]);
+    setWorkouts((prevWorkouts) => {
+      return [...prevWorkouts, data];
+    });
   };
 
   const navigate = useNavigate();

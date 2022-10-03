@@ -39,10 +39,11 @@ const AddWorkoutModal = ({ onAdd }) => {
 
     // e.preventDefault();
     const d = new Date(date);
+    const timestamp = new Date(`${date}T${time}`).getTime();
     const day = weekDays[d.getDay()];
     console.log(day);
 
-    onAdd({ name, day, time, date, teacherId });
+    onAdd({ name, day, timestamp, teacherId });
 
     setName('');
     setTime('');
@@ -111,11 +112,13 @@ const AddWorkoutModal = ({ onAdd }) => {
                 <div className="input-group has-validation">
                   <input
                     required
-                    type="text"
+                    type="time"
                     className="form-control"
                     id="timeInput"
                     placeholder="Godzina"
                     value={time}
+                    min="09:00"
+                    max="20:00"
                     onChange={(e) => setTime(e.target.value)}
                   />
                   <div className="invalid-feedback">Podaj godzinę.</div>
