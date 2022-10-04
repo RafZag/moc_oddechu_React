@@ -85,19 +85,21 @@ const WorkoutsView = (props) => {
   };
 
   const time = new Date(workoutInfo.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const date = new Date(workoutInfo.timestamp).toLocaleDateString();
 
   return (
     <>
       <div className="rounded bg-white p-3 mb-4 shadow-sm">
         <div className="container mb-4 rounded bg-secondary p-3 text-white">
           <h3>
-            {time} {' - '} {workoutInfo.name}
+            {workoutInfo.name} {' - '}
             <span className="fw-light">
-              {' | '} {teacherName} {teacherSurname}
+              {workoutInfo.day} {`(${date}) - `}
+              {time}
             </span>
             <div className="float-end">
-              {workoutInfo.day}
-              <span className="fw-light"> {workoutInfo.date}</span>
+              {teacherName} {teacherSurname}
+              <span className="fw-light"> </span>
             </div>
           </h3>
         </div>
