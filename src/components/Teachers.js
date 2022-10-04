@@ -3,52 +3,85 @@ import { useState, useEffect } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import DeletePersonModal from './DeletePersonModal';
 import AddPersonModal from './AddPersonModal';
+import { db } from '../firebase-config';
+import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
 
 const Teachers = ({ onSelect }) => {
   const [teachers, setTeachers] = useState([]);
   const [teacherToDelete, setToDelete] = useState({});
 
-  useEffect(() => {
-    const getTeachers = async () => {
-      const teachersFromServer = await fetchTeachers();
-      setTeachers(teachersFromServer);
-    };
+  const teachersCollectionRef = collection(db, 'teachers');
 
+  // useEffect(() => {
+  //   const getTeachers = async () => {
+  //     const teachersFromServer = await fetchTeachers();
+  //     setTeachers(teachersFromServer);
+  //   };
+
+  //   getTeachers();
+  // }, []);
+
+  const getTeachers = async () => {
+    const data = await getDocs(teachersCollectionRef);
+    setTeachers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
+  useEffect(() => {
     getTeachers();
   }, []);
 
   // Fetch Teachers
-  const fetchTeachers = async () => {
-    const res = await fetch('http://localhost:5000/teachers');
-    const data = await res.json();
+  // const fetchTeachers = async () => {
+  //   const res = await fetch('http://localhost:5000/teachers');
+  //   const data = await res.json();
 
-    return data;
-  };
+  //   return data;
+  // };
 
   //Delete Teacher
+  // const deleteTeacher = async (id) => {
+  //   const res = await fetch(`http://localhost:5000/teachers/${id}`, {
+  //     method: 'DELETE',
+  //   });
+  //   //We should control the response status to decide if we will change the state or not.
+  //   res.status === 200 ? setTeachers(teachers.filter((client) => client.id !== id)) : alert('Error Deleting This Teacher');
+  // };
+
   const deleteTeacher = async (id) => {
-    const res = await fetch(`http://localhost:5000/teachers/${id}`, {
-      method: 'DELETE',
-    });
-    //We should control the response status to decide if we will change the state or not.
-    res.status === 200 ? setTeachers(teachers.filter((client) => client.id !== id)) : alert('Error Deleting This Teacher');
+    deleteDoc(doc(db, 'teachers', id))
+      .then((docRef) => {
+        getTeachers();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   // Add Client
-  const addTeacher = async (client) => {
-    const res = await fetch('http://localhost:5000/teachers', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(client),
-    });
+  // const addTeacher = async (client) => {
+  //   const res = await fetch('http://localhost:5000/teachers', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-type': 'application/json',
+  //     },
+  //     body: JSON.stringify(client),
+  //   });
 
-    const data = await res.json();
+  //   const data = await res.json();
 
-    setTeachers((prevTeachers) => {
-      return [...prevTeachers, data];
-    });
+  //   setTeachers((prevTeachers) => {
+  //     return [...prevTeachers, data];
+  //   });
+  // };
+
+  const addTeacher = async (teacher) => {
+    addDoc(teachersCollectionRef, teacher)
+      .then((docRef) => {
+        getTeachers();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   // const navigate = useNavigate();

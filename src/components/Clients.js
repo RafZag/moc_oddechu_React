@@ -3,50 +3,42 @@ import { useState, useEffect } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import DeletePersonModal from './DeletePersonModal';
 import AddPersonModal from './AddPersonModal';
+import { db } from '../firebase-config';
+import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
 
 const Clients = ({ onSelect }) => {
   const [clients, setClients] = useState([]);
   const [clientToDelete, setToDelete] = useState({});
 
+  const clientsCollectionRef = collection(db, 'clients');
+
+  const getClients = async () => {
+    const data = await getDocs(clientsCollectionRef);
+    setClients(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+
   useEffect(() => {
-    const getClients = async () => {
-      const clientsFromServer = await fetchClients();
-      setClients(clientsFromServer);
-    };
     getClients();
   }, []);
 
-  // Fetch Clients
-  const fetchClients = async () => {
-    const res = await fetch('http://localhost:5000/clients');
-    const data = await res.json();
-    return data;
-  };
-
-  //Delete Client
   const deleteClient = async (id) => {
-    const res = await fetch(`http://localhost:5000/clients/${id}`, {
-      method: 'DELETE',
-    });
-    //We should control the response status to decide if we will change the state or not.
-    res.status === 200 ? setClients(clients.filter((client) => client.id !== id)) : alert('Error Deleting This Client');
+    deleteDoc(doc(db, 'clients', id))
+      .then((docRef) => {
+        getClients();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  // Add Client
-  const addClient = async (client) => {
-    const res = await fetch('http://localhost:5000/clients', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(client),
-    });
-
-    const data = await res.json();
-
-    setClients((prevClients) => {
-      return [...clients, data];
-    });
+  const addClient = async (teacher) => {
+    addDoc(clientsCollectionRef, teacher)
+      .then((docRef) => {
+        getClients();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   // const navigate = useNavigate();

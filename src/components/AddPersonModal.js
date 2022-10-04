@@ -12,7 +12,7 @@ const AddPersonModal = ({ onAdd, headerText }) => {
     //   return;
     // }
 
-    // e.preventDefault();
+    e.preventDefault();
     setName('');
     setSurname('');
     setEmail('');
@@ -100,7 +100,7 @@ const AddPersonModal = ({ onAdd, headerText }) => {
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => onCancel()}>
                   Anuluj
                 </button>
-                <input type="submit" value="Dodaj" className="btn btn-success" />
+                <input type="submit" value="Dodaj" className="btn btn-success" data-bs-dismiss="modal" />
               </div>
             </form>
           </div>
