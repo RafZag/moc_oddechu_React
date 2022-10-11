@@ -1,36 +1,50 @@
 import { useState, useEffect } from 'react';
+import { db } from '../firebase-config';
+import { collection, getDocs } from 'firebase/firestore';
 
 const AddWorkoutClientModal = ({ onAdd }) => {
   const [clients, setClients] = useState([]);
-  const [clientId, setClientId] = useState(0);
+  const [clientId, setClientId] = useState('');
+
+  const clientsCollectionRef = collection(db, 'clients');
 
   useEffect(() => {
-    const getClients = async () => {
-      const clientsFromServer = await fetchClients();
-      setClients(clientsFromServer);
-    };
-
     getClients();
   }, []);
 
-  // Fetch Clients
-  const fetchClients = async () => {
-    const res = await fetch('http://localhost:5000/clients');
-    const data = await res.json();
-    return data;
+  const getClients = async () => {
+    const data = await getDocs(clientsCollectionRef);
+    setClients(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
-  const onSubmit = () => {
+  // useEffect(() => {
+  //   const getClients = async () => {
+  //     const clientsFromServer = await fetchClients();
+  //     setClients(clientsFromServer);
+  //   };
+
+  //   getClients();
+  // }, []);
+
+  // Fetch Clients
+  // const fetchClients = async () => {
+  //   const res = await fetch('http://localhost:5000/clients');
+  //   const data = await res.json();
+  //   return data;
+  // };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
     if (!clientId) {
       alert('Wybierz klienta');
       return;
     }
     onAdd({ clientId });
-    setClientId(0);
+    setClientId('');
   };
 
   const onCancel = () => {
-    setClientId(0);
+    setClientId('');
   };
 
   return (
@@ -46,7 +60,7 @@ const AddWorkoutClientModal = ({ onAdd }) => {
           <div className="modal-body">
             <form className="mt-4 needs-validation" onSubmit={onSubmit}>
               <div className="mb-3">
-                <select className="form-select" value={clientId} onChange={(e) => setClientId(parseInt(e.target.value))} required>
+                <select className="form-select" value={clientId} onChange={(e) => setClientId(e.target.value)} required>
                   <option defaultValue>Wybierz klienta</option>
                   {clients.map((client, index) => (
                     <option key={index} value={client.id}>
@@ -59,7 +73,7 @@ const AddWorkoutClientModal = ({ onAdd }) => {
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => onCancel()}>
                   Anuluj
                 </button>
-                <input type="submit" value="Dodaj" className="btn btn-success" />
+                <input type="submit" value="Dodaj" data-bs-dismiss="modal" className="btn btn-success" />
               </div>
             </form>
           </div>

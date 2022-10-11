@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
+import { db } from '../firebase-config';
+import { collection, doc, getDoc } from 'firebase/firestore';
 
 const WorkoutClient = ({ id, setToDel, presId }) => {
   const [clientInfo, setclientInfo] = useState({});
 
-  useEffect(() => {
-    const getClientInfo = async () => {
-      const clientsFromServer = await FetchClientInfo();
-      setclientInfo(clientsFromServer);
-    };
-    getClientInfo();
-  }, []);
+  const clientsCollectionRef = collection(db, 'clients');
 
-  // Fetch presence
-  const FetchClientInfo = async () => {
-    const res = await fetch(`http://localhost:5000/clients/${id}`);
-    const data = await res.json();
-    return data;
+  const getClientInfo = async (id) => {
+    const teacherDoc = doc(db, 'clients', id);
+    const docSnap = await getDoc(teacherDoc);
+    const data = docSnap.exists() ? docSnap.data() : '';
+
+    setclientInfo(data);
   };
+
+  useEffect(() => {
+    getClientInfo(id);
+  }, []);
 
   return (
     <>

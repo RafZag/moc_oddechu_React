@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { db } from '../firebase-config';
+import { collection, getDocs } from 'firebase/firestore';
 
 const AddWorkoutModal = ({ onAdd }) => {
   const [teachers, setTeachers] = useState([]);
@@ -9,22 +11,33 @@ const AddWorkoutModal = ({ onAdd }) => {
 
   const weekDays = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
 
-  useEffect(() => {
-    const getTeachers = async () => {
-      const teachersFromServer = await fetchTeachers();
-      setTeachers(teachersFromServer);
-    };
+  const teachersCollectionRef = collection(db, 'teachers');
 
+  useEffect(() => {
     getTeachers();
   }, []);
 
-  // Fetch Teachers
-  const fetchTeachers = async () => {
-    const res = await fetch('http://localhost:5000/teachers');
-    const data = await res.json();
-
-    return data;
+  const getTeachers = async () => {
+    const data = await getDocs(teachersCollectionRef);
+    setTeachers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
+
+  // useEffect(() => {
+  //   const getTeachers = async () => {
+  //     const teachersFromServer = await fetchTeachers();
+  //     setTeachers(teachersFromServer);
+  //   };
+
+  //   getTeachers();
+  // }, []);
+
+  // Fetch Teachers
+  // const fetchTeachers = async () => {
+  //   const res = await fetch('http://localhost:5000/teachers');
+  //   const data = await res.json();
+
+  //   return data;
+  // };
 
   const onSubmit = (e) => {
     // if (!day) {
@@ -37,7 +50,7 @@ const AddWorkoutModal = ({ onAdd }) => {
       return;
     }
 
-    // e.preventDefault();
+    e.preventDefault();
     const d = new Date(date);
     const timestamp = new Date(`${date}T${time}`).getTime();
     const day = weekDays[d.getDay()];
@@ -84,30 +97,6 @@ const AddWorkoutModal = ({ onAdd }) => {
                   <div className="invalid-feedback">Podaj nazwę.</div>
                 </div>
               </div>
-              {/* <div className="mb-3">
-                <div className="input-group has-validation">
-                  <input
-                    required
-                    type="text"
-                    className="form-control"
-                    id="dayInput"
-                    placeholder="Dzień tygodnia"
-                    value={day}
-                    onChange={(e) => setDay(e.target.value)}
-                  />
-                  <div className="invalid-feedback">Podaj dzień tygodnia.</div>
-                </div>
-              </div> */}
-              {/* <div className="mb-3">
-                <select className="form-select" value={day} onChange={(e) => setDay(e.target.value)} required>
-                  <option defaultValue>Wybierz dzień</option>
-                  {weekDays.map((day, index) => (
-                    <option key={index} value={day}>
-                      {day}
-                    </option>
-                  ))}
-                </select>
-              </div> */}
               <div className="mb-3">
                 <div className="input-group has-validation">
                   <input
@@ -139,7 +128,7 @@ const AddWorkoutModal = ({ onAdd }) => {
                 </div>
               </div>
               <div className="mb-3">
-                <select className="form-select" value={teacherId} onChange={(e) => setTeacher(parseInt(e.target.value))} required>
+                <select className="form-select" value={teacherId} onChange={(e) => setTeacher(e.target.value)} required>
                   <option defaultValue>Wybierz nauczyciela</option>
                   {teachers.map((teacher, index) => (
                     <option key={index} value={teacher.id}>
@@ -152,7 +141,7 @@ const AddWorkoutModal = ({ onAdd }) => {
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={() => onCancel()}>
                   Anuluj
                 </button>
-                <input type="submit" value="Dodaj" className="btn btn-success" />
+                <input type="submit" value="Dodaj" data-bs-dismiss="modal" className="btn btn-success" />
               </div>
             </form>
           </div>
