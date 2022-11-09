@@ -1,8 +1,16 @@
 import logo from '../img/mo_logo.png';
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
-const Header = ({ title }) => {
+const Header = ({ title, isAuth }) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate('/login');
+    }
+  });
+
   return (
     <header className="container position-relative">
       <div className="d-flex align-items-center py-3">
