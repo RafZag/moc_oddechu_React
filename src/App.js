@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase-config';
 
 import Header from './components/Header';
@@ -26,14 +26,6 @@ function App() {
     console.log(name);
   };
 
-  const logout = async () => {
-    await signOut(auth);
-    // localStorage.clear();
-    localStorage.setItem('isAuth', false);
-    setIsAuth(false);
-    window.location.pathname = '/login';
-  };
-
   return (
     <Router>
       <div className="container position-relative">
@@ -52,7 +44,7 @@ function App() {
               <>
                 <Header title={'Lista zajęć'} isAuth={isAuth} />
                 <Workouts onSelect={onSelect} />
-                <Footer user={currentUser} onLogout={logout} />
+                <Footer user={currentUser} setIsAuth={setIsAuth} />
               </>
             }
           />
@@ -62,7 +54,7 @@ function App() {
               <>
                 <Header title={'Lista nauczycieli'} isAuth={isAuth} />
                 <Teachers onSelect={onSelect} />
-                <Footer user={currentUser} />
+                <Footer user={currentUser} setIsAuth={setIsAuth} />
               </>
             }
           />
@@ -72,7 +64,7 @@ function App() {
               <>
                 <Header title={'Lista klientów'} isAuth={isAuth} />
                 <Clients onSelect={onSelect} />
-                <Footer user={currentUser} />
+                <Footer user={currentUser} setIsAuth={setIsAuth} />
               </>
             }
           />
@@ -82,7 +74,7 @@ function App() {
               <>
                 <Header title={'Zajęcia'} isAuth={isAuth} />
                 <WorkoutsView onSelect={onSelect} />
-                <Footer user={currentUser} />
+                <Footer user={currentUser} setIsAuth={setIsAuth} />
               </>
             }
           />
